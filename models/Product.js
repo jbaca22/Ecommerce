@@ -1,7 +1,7 @@
 // import important parts of sequelize library
 const { Model, DataTypes, INTEGER, DECIMAL } = require('sequelize');
 // import our database connection from config.js
-const sequelize = require('../config/connection');
+const sequelize = require('../config/connection.js');
 const { values } = require('sequelize/types/lib/operators');
 
 // Initialize Product model (table) by extending off Sequelize's Model class
@@ -23,26 +23,12 @@ Product.init(
     price: {
       type: DataTypes.DECIMAL,
       allowNull: false,
-      validate: {
-        customValidator(value) {
-          if (value !== DECIMAL) {
-            throw new Error ("please enter a proper decimal value");
-          }
-        }
-      }
     },
     stock: {
       type:DataTypes.INTEGER,
       allowNull: false,
       set: values.INTEGER,
       defaultValue: 10,
-      validate: {
-        customValidator(value) {
-          if (value === null && value !== INTEGER) {
-            throw new Error("please enter a numeric value");
-          }
-        }
-      }
     },
     category_id: {
       type:DataTypes.INTEGER,
